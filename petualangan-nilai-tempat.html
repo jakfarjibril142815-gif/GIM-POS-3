@@ -1,0 +1,178 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Petualangan Dunia Nilai Tempat – AI Math Adventure</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1b1446;--card:#2a2262;--ink:#fff8e7;--mut:#b9b0e8;--sun:#ffc93c;--mint:#3ddbb0;--coral:#ff6b6b;--sky:#52b6ff;--line:#4a3f9a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;min-height:100%;font-family:'Baloo 2','Trebuchet MS',system-ui,sans-serif;background:radial-gradient(circle at 20% 0,#4b2fa8 0,var(--bg) 55%) fixed,var(--bg);color:var(--ink);font-size:18px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:#150f38;z-index:10}
+header{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 14px;background:#150f38;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;border-bottom:3px solid var(--line)}
+.logo{font-weight:800;margin-right:auto}.mini{font:inherit;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:12px;padding:6px 12px;cursor:pointer;min-height:44px}
+main{max-width:960px;margin:0 auto;padding:10px 14px 40px}h1,h2,h3{margin:.3em 0}h1{font-size:clamp(1.6rem,6vw,2.4rem)}
+.btn{font:inherit;font-weight:800;font-size:1.15rem;border:0;border-radius:18px;padding:12px 20px;min-height:56px;cursor:pointer;color:#2b1a00;background:var(--sun);box-shadow:0 6px 0 #b88700;margin:4px 2px}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #b88700}.btn.g{background:var(--mint);box-shadow:0 6px 0 #1b9a78}.btn.b{background:var(--sky);box-shadow:0 6px 0 #1f7bc0}.btn.r{background:var(--coral);color:#fff;box-shadow:0 6px 0 #b83a3a}
+:focus-visible{outline:4px solid #fff;outline-offset:2px}.scr{display:none}.scr.on{display:block}
+.card{background:var(--card);border:3px solid var(--line);border-radius:22px;padding:16px;margin:12px 0}.hero{text-align:center}.bigem{font-size:4rem;filter:drop-shadow(0 8px 4px #0006)}
+.world{perspective:1000px;margin:10px 0}.tilt{display:grid;grid-template-columns:1fr 1fr;gap:26px 12px;padding:28px 10px 40px;transform:rotateX(20deg) rotateY(var(--ry,0deg));transform-style:preserve-3d;background:radial-gradient(ellipse at center,#2b8fd1,#1b5aa8 60%,#12307a);border-radius:30px;border:4px solid #0d2260;transition:transform .2s}
+.isl{font:inherit;font-weight:800;color:#2b1a00;border:0;cursor:pointer;aspect-ratio:1.25;border-radius:48% 52% 45% 55%/55% 45% 55% 45%;background:radial-gradient(circle at 35% 25%,var(--a),var(--b));box-shadow:0 16px 0 var(--c),0 30px 24px #0007;transform:translateZ(24px);animation:fl 4s ease-in-out infinite;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px;line-height:1.1}
+.isl:nth-child(even){margin-top:34px;animation-delay:-2s}.isl .em{font-size:clamp(2rem,9vw,3.4rem);filter:drop-shadow(0 6px 3px #0005)}.isl.lock{filter:grayscale(1) brightness(.6);cursor:not-allowed}
+@keyframes fl{50%{transform:translateZ(24px) translateY(-8px)}}
+.tutor{display:flex;gap:12px;align-items:flex-start}.robot{font-size:3.2rem;filter:drop-shadow(0 8px 4px #0006);line-height:1}.say{background:#fff8e7;color:#2a1b52;padding:10px 14px;border-radius:6px 20px 20px 20px;font-weight:600;flex:1}
+.hud{display:flex;gap:10px;align-items:center}.bar{flex:1;height:16px;background:#150f38;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--mint),var(--sun));transition:width .4s}
+.row{display:grid;grid-template-columns:100px 1fr 48px;gap:8px;align-items:center;margin:6px 0}
+.q{font-size:1.4rem;font-weight:800;line-height:1.3}.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.opt{font-size:1.5rem}.opt.sel{outline:4px solid #fff;background:var(--sun)}
+input.ans{font:inherit;font-size:1.8rem;width:100%;max-width:340px;padding:10px 14px;border-radius:16px;border:4px solid var(--sky);background:#fff8e7;color:#2a1b52;text-align:center;margin:10px 0}
+.slots{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0}.slot{width:96px;min-height:104px;border:3px dashed var(--sun);border-radius:16px;text-align:center;padding:4px;cursor:pointer}.slot small{display:block;font-size:.85rem;color:var(--mut)}
+.chip{display:inline-block;min-width:56px;margin:4px;padding:8px 14px;border-radius:14px;background:var(--sun);color:#2b1a00;font-size:1.8rem;font-weight:800;cursor:grab;box-shadow:0 4px 0 #b88700}.chip.sel{outline:4px solid #fff}
+.fb{margin-top:12px;padding:12px;border-radius:14px;font-weight:600}.fb.ok{background:#0f5c47}.fb.bad{background:#6a2150}
+.shake{animation:sh .4s}.pop{animation:pp .5s}@keyframes sh{25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}@keyframes pp{40%{transform:scale(1.15) rotate(-4deg)}}
+.bk{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin:10px 0}.bk figure{margin:0;text-align:center;font-size:.85rem}.bk .g{display:flex;flex-wrap:wrap;gap:3px;align-items:flex-end;justify-content:center;max-width:140px;min-height:14px}
+.u1{width:12px;height:12px;background:var(--coral);border-radius:3px}.u2{width:12px;height:46px;background:var(--mint);border-radius:3px}.u3{width:46px;height:46px;background:var(--sky);border-radius:5px;background-image:linear-gradient(#fff4 1px,transparent 1px),linear-gradient(90deg,#fff4 1px,transparent 1px);background-size:9px 9px}.u4{width:44px;height:44px;background:var(--sun);border-radius:6px;box-shadow:6px 6px 0 #b88700,inset 3px 3px 0 #ffe27a}
+.pt{border-collapse:collapse;margin:8px auto}.pt td{border:2px solid var(--line);padding:4px 10px;text-align:center;min-width:64px}.small{color:var(--mut);font-size:.9rem}
+.tw{overflow-x:auto}table.t{width:100%;border-collapse:collapse;font-size:.92rem;min-width:780px}.t th,.t td{padding:8px;border-bottom:2px solid var(--line);text-align:left;vertical-align:top}
+.cols{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}.col{text-align:center;min-width:92px}.col .g{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;align-items:flex-end;min-height:56px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#fff8e7;color:#2a1b52;padding:10px 18px;border-radius:14px;font-weight:700;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}#toast.on{opacity:1}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<header><b class="logo">🧭 Dunia Nilai Tempat</b><span id="who"></span><button class="mini" data-a="map" aria-label="Peta">🗺️</button><button class="mini" data-a="teacher">👩‍🏫 Guru</button><button class="mini" data-a="snd" id="bs" aria-label="Suara">🔊</button></header>
+<main><section id="s-login" class="scr on"></section><section id="s-map" class="scr"></section><section id="s-lesson" class="scr"></section><section id="s-game" class="scr"></section><section id="s-res" class="scr"></section><section id="s-gate" class="scr"></section><section id="s-teach" class="scr"></section></main>
+<div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),PL=['satuan','puluhan','ratusan','ribuan','puluh ribuan'];
+const fmt=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.'),rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),shuf=a=>a.slice().sort(()=>Math.random()-.5),P=i=>10**i,pick=a=>a[rnd(0,a.length-1)];
+const g=n=>String(n).split('').reverse().map(Number),esc=s=>String(s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const LV=[{n:'Pulau Satuan & Puluhan',e:'🏝️',dn:2,mp:1,a:'#ffe27a',b:'#ffb62e',c:'#b27300',bd:'🥉 Penjelajah Satuan'},
+{n:'Pulau Ratusan',e:'🌴',dn:3,mp:2,a:'#9af0c6',b:'#2fc98b',c:'#13805a',bd:'🥈 Penjaga Ratusan'},
+{n:'Pulau Ribuan',e:'🏔️',dn:4,mp:3,a:'#a9d4ff',b:'#5b9cf0',c:'#2c5eab',bd:'🥇 Raja Ribuan'},
+{n:'Gunung 10.000',e:'🌋',dn:4,mp:3,mix:1,a:'#ffb0a0',b:'#ff6b5a',c:'#a52d20',bd:'👑 Juara Nilai Tempat'}];
+let DB=(()=>{try{return JSON.parse(localStorage.getItem('pdnt1'))||{st:{},cur:null}}catch(e){return{st:{},cur:null}}})();
+const save=()=>{try{localStorage.setItem('pdnt1',JSON.stringify(DB))}catch(e){}};
+const S=()=>DB.st[DB.cur],newS=()=>({log:[],done:{},badges:[],rounds:[]}),starsOf=s=>Object.values(s.done).reduce((a,d)=>a+d.stars,0);
+let R=null,Q=null,snd=true,confirmDel=false;
+function show(id){document.querySelectorAll('.scr').forEach(e=>e.classList.toggle('on',e.id==='s-'+id));scrollTo(0,0);$('#who').textContent=S()?'🧒 '+DB.cur+' ⭐'+starsOf(S()):''}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),2300)}
+function beep(f,d=.14,t='sine'){if(!snd)return;try{const a=beep.c||(beep.c=new(window.AudioContext||window.webkitAudioContext)()),o=a.createOscillator(),v=a.createGain();o.type=t;o.frequency.value=f;v.gain.value=.07;o.connect(v);v.connect(a.destination);o.start();o.stop(a.currentTime+d)}catch(e){}}
+function burst(){for(let i=0;i<14;i++){const s=document.createElement('span');s.textContent='⭐';s.style.cssText='position:fixed;left:50%;top:45%;font-size:28px;z-index:30;pointer-events:none';document.body.append(s);const a=Math.random()*6.28,r=120+Math.random()*160;s.animate([{transform:'translate(0,0) scale(.4)',opacity:1},{transform:`translate(${Math.cos(a)*r}px,${Math.sin(a)*r}px) scale(1.3)`,opacity:0}],{duration:900,easing:'ease-out'}).onfinish=()=>s.remove()}}
+function anim(k){const e=k=='wrong'?$('#qc'):$('#rb'),c=k=='wrong'?'shake':'pop';if(!e)return;e.classList.remove(c);void e.offsetWidth;e.classList.add(c);$('#rb').textContent=k=='wrong'?'🤖💭':'🤖✨'}
+const say=t=>{const e=$('#say');if(e)e.textContent=t};
+
+/* ---------- statistik & riwayat ---------- */
+function stats(s){const per=[0,1,2,3,4].map(()=>({n:0,c:0})),errP=[0,0,0,0,0],ek={a:0,t:0};let cr=0,ok=0;
+s.log.forEach(e=>{cr+=e.c;if(e.c==1)ok++;if(per[e.p]){per[e.p].n++;per[e.p].c+=e.c}(e.er||[]).forEach(x=>{errP[x.p]++;ek[x.k]++})});
+const n=s.log.length;return{n,ok,bad:n-ok,pct:n?Math.round(cr/n*100):0,per,errP,ek}}
+function progress(s){const t=stats(s);return`<p>Skor penguasaan: <b>${t.pct}%</b>, soal dikerjakan: ${t.n}, benar langsung: ${t.ok}</p>`+[0,1,2,3].map(j=>{const p=t.per[j],m=p.n?Math.round(p.c/p.n*100):0;return`<div class="row"><span>${PL[j]}</span><div class="bar"><i style="width:${m}%"></i></div><b>${p.n?m+'%':'–'}</b></div>`}).join('')+`<p>Lencana: ${s.badges.length?s.badges.join(', '):'belum ada, ayo kumpulkan!'}</p>`}
+
+/* ---------- layar login & peta ---------- */
+function vLogin(){const ns=Object.keys(DB.st);$('#s-login').innerHTML=`<div class="card hero"><div class="bigem">🧒🤖</div><h1>Petualangan Dunia Nilai Tempat</h1><p>AI Math Adventure: jelajahi pulau, jawab soal, kumpulkan bintang dan lencana!</p><input class="ans" id="nm" maxlength="24" placeholder="Tulis namamu" aria-label="Nama penjelajah"><p><button class="btn g" data-a="login">Mulai Petualangan</button></p>${ns.length?'<h3>Lanjutkan sebagai:</h3>'+ns.map(n=>`<button class="btn b" data-a="login" data-n="${esc(n)}">${esc(n)}</button>`).join(''):''}</div>`}
+function vMap(){const s=S(),op=i=>i==0||s.done[i-1];
+$('#s-map').innerHTML=`<div class="tutor"><div class="robot">🧒🤖</div><div class="say">Halo ${esc(DB.cur)}! Aku Robo-Nilai. Selesaikan 6 soal dengan skor 80% atau lebih untuk membuka pulau berikutnya.</div></div>
+<div class="world"><div class="tilt" id="tilt">${LV.map((l,i)=>`<button class="isl ${op(i)?'':'lock'}" style="--a:${l.a};--b:${l.b};--c:${l.c}" data-a="play" data-i="${i}"><span class="em">${op(i)?l.e:'🔒'}</span><span>${l.n}</span><small>${s.done[i]?'⭐'.repeat(s.done[i].stars)||'Selesai':op(i)?'Belum selesai':'Terkunci'}</small></button>`).join('')}</div></div>
+<div class="card"><h3>Perkembanganmu</h3>${progress(s)}</div><p><button class="btn b" data-a="lesson" data-i="0">📘 Materi Dasar</button><button class="btn r" data-a="logout">Ganti Penjelajah</button></p>`;show('map')}
+
+/* ---------- materi dasar (alat peraga) ---------- */
+let LS={};
+function vLesson(lv,after){LS={c:[0,0,0,0],lv,tg:null,after};paintLesson();show('lesson')}
+function paintLesson(){const k=LV[LS.lv].mp+1,n=LS.c.slice(0,k).reduce((a,x,j)=>a+x*P(j),0),ex=LS.c.map((x,j)=>x*P(j)).slice(0,k).reverse().filter(x=>x).map(fmt).join(' + ')||'0';
+$('#s-lesson').innerHTML=`<div class="tutor"><div class="robot">🤖</div><div class="say">Nilai tempat: angka yang sama bernilai berbeda bergantung tempatnya. Tambah atau kurangi balok di tiap tempat, lihat bilangannya!</div></div>
+<div class="card"><div class="cols">${[...Array(k).keys()].reverse().map(j=>`<div class="col"><b>${PL[j]}</b><div class="g">${`<i class="u${j+1}"></i>`.repeat(LS.c[j])}</div><div style="font-size:2rem;font-weight:800">${LS.c[j]}</div><button class="btn g" data-a="col" data-j="${j}" data-d="1" aria-label="Tambah ${PL[j]}">＋</button><button class="btn r" data-a="col" data-j="${j}" data-d="-1" aria-label="Kurangi ${PL[j]}">－</button></div>`).join('')}</div>
+<h2 class="hero">${fmt(n)}</h2><p class="hero small">${ex}</p>${LS.tg!=null?`<p class="hero"><b>Tantangan: bentuk bilangan ${fmt(LS.tg)}</b> ${n==LS.tg?'✅ Berhasil!':''}</p>`:''}</div>
+<p><button class="btn b" data-a="chal">🎯 Tantangan Mini</button><button class="btn g" data-a="round" data-m="${LS.after=='basic'?'basic':'normal'}" data-i="${LS.lv}">Mulai Latihan</button></p>`}
+
+/* ---------- mesin soal adaptif ---------- */
+function startRound(lv,mode){R={lv,mode,i:0,total:mode=='basic'?5:6,tier:{normal:1,hard:3,reinforce:2,basic:1}[mode],streak:0,pts:0,last:null};
+$('#s-game').innerHTML=`<div class="hud"><b>${LV[lv].e} ${LV[lv].n}</b><div class="bar"><i id="pb"></i></div><b id="cn"></b></div><div class="tutor"><div class="robot" id="rb">🤖</div><div class="say" id="say"></div></div>
+<div class="card" id="qc"><div class="q" id="qt"></div><div id="qa"></div><div id="ill"></div><div id="fb"></div><p id="bt"></p></div><p class="small">Tingkat soal: <b id="tr"></b> &nbsp; Fokus: <b id="fo"></b> &nbsp; Skor ronde: <b id="rp"></b></p>`;show('game');nextQ()}
+function focus(){if(R.mode=='basic'||(R.mode!='reinforce'&&R.i%2==0))return null;const e=stats(S()).errP.slice(0,LV[R.lv].mp+1),m=Math.max(...e);return m>0?e.indexOf(m):null}
+function genD(dn,t){const d=shuf([1,2,3,4,5,6,7,8,9]).slice(0,dn);if(t>=2&&dn>=3&&Math.random()<.75)d[rnd(0,dn-2)]=0;return d}
+function mkOpts(vs){const seen=new Set(),o=[];vs.forEach(([v,k])=>{if(!seen.has(v)&&o.length<4){seen.add(v);o.push({v,k})}});return shuf(o)}
+function genQ(){const L=LV[R.lv],t=R.mode=='basic'?1:R.tier;let f=focus(),dn=L.mix?rnd(2,4):L.dn;if(f!=null&&dn<=f)dn=f+1;
+let pool=t==1?['mv','mp','fc']:t==2?['mv','dnd','fc','fe','mp']:['dnd','fe','mv','fc','ten'];if(dn<4||t<3||!L.mp||L.mp<3)pool=pool.filter(x=>x!='ten');
+pool=pool.filter(x=>x!=R.last);let ty=pick(pool);if(f==0&&(ty=='mv'||ty=='fe'))ty='fc';R.last=ty;
+let d,ps;for(let k=0;k<30;k++){d=genD(dn,t);ps=d.map((x,j)=>j).filter(j=>d[j]>0);if(f==null||d[f]>0||(ty!='mv'&&ty!='fe'))break}
+const n=+[...d].reverse().join(''),exp=sk=>ps.slice().reverse().map(j=>j==sk?'▢':fmt(d[j]*P(j))).join(' + '),c=ps.filter(j=>j>=1);
+Q={ty,n,g:d,dn,f,tries:0,hint:0,er:[]};
+if(ty=='mv'){const i=f!=null&&c.includes(f)?f:pick(c),x=d[i];Q.p=i;Q.text=`Pada bilangan ${fmt(n)}, berapakah nilai angka ${x}?`;Q.opts=mkOpts([[x*P(i),null],[x,'a'],[x*P(i+1),'t'],[x*P(i-1),'t'],[x*P(i+2),'t']]);Q.ans=x*P(i);Q.ex=`Angka ${x} ada di tempat ${PL[i]}, jadi nilainya ${x} × ${fmt(P(i))} = ${fmt(x*P(i))}.`}
+else if(ty=='mp'){const i=f!=null?f:rnd(0,dn-1);Q.p=i;Q.text=`Angka berapa yang berada di tempat ${PL[i]} pada bilangan ${fmt(n)}?`;const cs=[d[i],...shuf(d.filter((_,j)=>j!=i)),...shuf([0,1,2,3,4,5,6,7,8,9])];Q.opts=mkOpts(cs.map((v,k)=>[v,k?'t':null]));Q.ans=d[i];Q.ex=`Di tempat ${PL[i]} ada angka ${d[i]}.`}
+else if(ty=='fc'){Q.p=f!=null?f:rnd(0,dn-1);Q.text='Bilangan apakah ini? '+d.map((x,j)=>`${x} ${PL[j]}`).reverse().join(' + ');Q.ans=n;Q.ex=`${exp(-1)} = ${fmt(n)}.`}
+else if(ty=='dnd'){Q.p=f!=null?f:dn-1;Q.text=`Bilangan ${exp(-1)}. Seret (atau ketuk) setiap angka ke kotak tempat nilainya. Tempat tanpa nilai berarti angka 0.`;Q.cards=shuf(d.map(x=>({d:x,used:0})));Q.sl=Array(dn).fill(null);Q.pl=d.map((_,j)=>j).reverse();Q.selc=null;Q.ans=n;Q.ex=`Susunan yang benar adalah ${fmt(n)}.`}
+else if(ty=='fe'){const i=f!=null&&c.includes(f)?f:pick(c);Q.p=i;Q.text=`${fmt(n)} = ${exp(i)}. Isi ▢ dengan bilangan yang tepat.`;Q.ans=d[i]*P(i);Q.ex=`Angka ${d[i]} di tempat ${PL[i]} bernilai ${d[i]} × ${fmt(P(i))} = ${fmt(Q.ans)}.`}
+else{Q.n=10000;Q.g=g(10000);Q.dn=5;Q.p=3;Q.f=null;Q.text='10.000 sama dengan berapa ribuan?';Q.opts=mkOpts([[10,null],[1000,'t'],[100,'t'],[1,'a']]);Q.ans=10;Q.ex='10 × 1.000 = 10.000.'}
+Q.ansT=fmt(Q.ans)}
+function nextQ(){genQ();$('#pb').style.width=R.i/R.total*100+'%';$('#cn').textContent=R.i+1+'/'+R.total;
+say(Q.f!=null?`Aku melihat kamu perlu latihan di tempat ${PL[Q.f]}. Soal ini khusus untuk itu!`:R.mode=='basic'?'Kita pelan-pelan dari dasar ya. Kamu bisa!':'Ayo kerjakan soal ini!');paintQ()}
+function dndHtml(){return`<div class="slots">${Q.pl.map(j=>`<div class="slot" data-a="slot" data-j="${j}"><small>${PL[j]}</small>${Q.sl[j]!=null?`<span class="chip">${Q.cards[Q.sl[j]].d}</span>`:''}</div>`).join('')}</div><p class="slots">${Q.cards.map((c,i)=>c.used?'':`<span class="chip ${Q.selc===i?'sel':''}" draggable="true" data-a="chip" data-i="${i}">${c.d}</span>`).join('')}</p>`}
+function paintQ(){$('#qt').textContent=Q.text;$('#rb').textContent='🤖';let h;
+if(Q.opts)h='<div class="opts">'+Q.opts.map((o,i)=>`<button class="btn b opt" data-a="pick" data-i="${i}">${fmt(o.v)}</button>`).join('')+'</div>';
+else if(Q.ty=='dnd')h=dndHtml();else h='<input class="ans" id="in" inputmode="numeric" autocomplete="off" placeholder="Jawabanmu" aria-label="Jawabanmu">';
+$('#qa').innerHTML=h;$('#fb').innerHTML='';$('#ill').innerHTML='';Q.pk=null;
+$('#bt').innerHTML='<button class="btn g" data-a="check">✔ Periksa</button><button class="btn b" data-a="hint">💡 Petunjuk</button>';
+$('#tr').textContent=['','Mudah','Sedang','Sulit'][R.mode=='basic'?1:R.tier];$('#fo').textContent=Q.f==null?'umum':PL[Q.f];$('#rp').textContent=R.pts}
+function ill(){const n=Q.n,gg=g(n),gr=[[3,Math.floor(n/1000)],[2,gg[2]||0],[1,gg[1]||0],[0,gg[0]||0]].filter(x=>x[0]==0||n>=P(x[0]));
+return`<div class="bk">${gr.map(([j,k])=>`<figure><div class="g">${`<i class="u${j+1}"></i>`.repeat(k)}</div>${k} ${PL[j]}</figure>`).join('')}</div><table class="pt"><tr>${Q.g.map((_,j)=>`<td>${PL[Q.g.length-1-j]}</td>`).join('')}</tr><tr>${Q.g.map((_,j)=>`<td><b>${Q.g[Q.g.length-1-j]}</b></td>`).join('')}</tr></table>`}
+function why(){const x=Q.er[Q.er.length-1]||{},p=x.p!=null?x.p:Q.p,d=Q.g[p],v=d*P(p);
+if(Q.ty=='ten')return'Ingat: 1 ribuan = 1.000, jadi 10 ribuan = 10 × 1.000 = 10.000.';
+if(Q.ty=='mp')return`Hitung tempat dari kanan: satuan, puluhan, ratusan, ribuan. Di tempat ${PL[p]} ada angka ${d}.`;
+if(Q.ty=='mv'||Q.ty=='fe')return x.k=='a'?`Kamu menjawab angkanya saja. Padahal nilai angka bergantung pada tempatnya: ${d} di tempat ${PL[p]} bernilai ${d} × ${fmt(P(p))} = ${fmt(v)}.`:`Tempatnya keliru. Hitung dari kanan: satuan, puluhan, ratusan, ribuan. Angka ${d} ada di tempat ${PL[p]}, jadi bernilai ${fmt(v)}.`;
+return'Yang masih keliru: '+[...new Set(Q.er.map(e=>e.p))].map(j=>`${PL[j]} (angkanya ${Q.g[j]}, nilainya ${fmt(Q.g[j]*P(j))})`).join('; ')+'.'}
+function judge(){if(Q.opts){if(Q.pk==null)return null;const o=Q.opts[Q.pk];return{ok:!o.k,er:o.k?[{p:Q.p,k:o.k}]:[]}}
+if(Q.ty=='dnd'){if(Q.sl.some(x=>x==null))return null;const er=[];Q.pl.forEach(j=>{if(Q.cards[Q.sl[j]].d!=Q.g[j])er.push({p:j,k:'t'})});return{ok:!er.length,er}}
+const v=$('#in').value.replace(/[.\s]/g,'');if(!/^\d+$/.test(v))return null;const a=+v;if(a==Q.ans)return{ok:true,er:[]};
+if(Q.ty=='fe')return{ok:false,er:[{p:Q.p,k:a==Q.g[Q.p]?'a':'t'}]};
+const ga=g(a),er=[];for(let j=0;j<Math.max(ga.length,Q.g.length);j++)if((ga[j]||0)!=(Q.g[j]||0))er.push({p:Math.min(j,4),k:'t'});return{ok:false,er}}
+function check(){if(!Q||Q.done)return;const r=judge();if(!r){toast('Pilih atau isi jawabanmu dulu ya!');return}
+Q.tries++;if(r.ok)return end(true);Q.er.push(...r.er);if(Q.tries>=2)return end(false);
+beep(200,.25,'sawtooth');anim('wrong');$('#fb').innerHTML=`<div class="fb bad"><b>Belum tepat.</b> ${why()}</div>`;$('#ill').innerHTML=ill();say('Tidak apa-apa! Baca penjelasanku, lihat ilustrasinya, lalu coba lagi.');
+$('#bt').innerHTML='<button class="btn g" data-a="retry">🔁 Coba Lagi</button>'}
+function end(ok){Q.done=1;const c=ok?(Q.tries==1&&!Q.hint?1:.5):0,s=S();s.log.push({l:R.lv,p:Q.p,ty:Q.ty,c,er:Q.er,t:Date.now()});if(s.log.length>400)s.log.shift();R.pts+=c;let note='';
+if(c==1){R.streak++;if(R.streak>=2&&R.tier<3){R.tier++;R.streak=0;note='Soal berikutnya kunaikkan tingkatnya.'}}else{R.streak=0;if(R.tier>1){R.tier--;note='Soal berikutnya kuturunkan sedikit tingkatnya.'}}
+save();if(ok){beep(660);setTimeout(()=>beep(880),130);anim('right');burst()}else{beep(200,.25,'sawtooth');anim('wrong')}
+$('#fb').innerHTML=`<div class="fb ${ok?'ok':'bad'}"><b>${ok?(c==1?'Hebat! Jawabanmu benar!':'Benar! Kali ini berhasil.'):'Jawaban yang benar: '+Q.ansT+'.'}</b> ${ok?'':why()+' '}${Q.ex}</div>`;$('#ill').innerHTML=ill();
+say((ok?'Keren! ':'Ayo belajar dari ini. ')+note);$('#rp').textContent=R.pts;$('#bt').innerHTML=`<button class="btn g" data-a="next">${R.i+1>=R.total?'Lihat Hasil':'Lanjut ➜'}</button>`}
+function hint(){if(!Q||Q.done)return;Q.hint=1;$('#ill').innerHTML=ill();say({mv:'Lihat tabel: angka itu ada di tempat apa? Kalikan dengan nilai tempatnya.',mp:'Baca tabel dari kanan: satuan, puluhan, ratusan, ribuan.',fc:'Tiap kelompok balok adalah satu tempat. Gabungkan nilainya.',dnd:'Cocokkan nilai di soal dengan tempatnya. Tempat tanpa nilai berarti 0.',fe:'Cari tempat yang hilang, lalu hitung angka × nilai tempatnya.',ten:'1 ribuan = 1.000. Berapa ribuan sampai 10.000?'}[Q.ty]+' (Memakai petunjuk membuat skor soal ini ½.)')}
+function endRound(){const s=S(),pct=Math.round(R.pts/R.total*100),st=pct>=90?3:pct>=80?2:pct>=60?1:0,lv=R.lv,nb=[],prev=[...s.rounds].reverse().find(r=>r.lv==lv);s.rounds.push({lv,mode:R.mode,pct,t:Date.now()});
+const add=b=>{if(!s.badges.includes(b)){s.badges.push(b);nb.push(b)}};
+if(pct>=80){const d=s.done[lv]||{best:0,stars:0};s.done[lv]={best:Math.max(d.best,pct),stars:Math.max(d.stars,st)};add(LV[lv].bd);if(pct==100)add('💎 Sempurna');if(R.mode=='hard')add('🔥 Penantang Tangguh');if(prev&&prev.pct<60)add('🌱 Pantang Menyerah')}
+save();let msg,bt;
+if(pct>=80){msg='Luar biasa! Penguasaanmu tinggi, jadi kamu boleh mencoba soal yang lebih menantang.';bt=`<button class="btn r" data-a="round" data-m="hard">🔥 Soal Lebih Menantang</button>${lv<3?`<button class="btn g" data-a="play" data-i="${lv+1}">🚀 Level Berikutnya</button>`:''}`}
+else if(pct>=60){msg='Bagus! Kamu perlu latihan penguatan, terutama di tempat yang masih sering keliru.';bt='<button class="btn b" data-a="round" data-m="reinforce">💪 Latihan Penguatan</button>'}
+else{msg='Yuk kembali ke materi dasar dulu. Pelan-pelan, kamu pasti bisa!';bt=`<button class="btn b" data-a="lesson" data-i="${lv}" data-m="basic">📘 Belajar Materi Dasar</button>`}
+$('#s-res').innerHTML=`<div class="card hero"><div class="bigem">${'⭐'.repeat(st)||'🌱'}</div><h2>Skor ronde: ${pct}%</h2><p>${msg}</p>${nb.length?`<p><b>Lencana baru: ${nb.join(', ')}</b></p>`:''}<p>${bt}<button class="btn b" data-a="map">🗺️ Peta</button></p></div>`;show('res');if(pct>=80){burst();beep(784,.3)}}
+function place(i,j){if(Q.cards[i].used)return;if(Q.sl[j]!=null)Q.cards[Q.sl[j]].used=0;Q.sl[j]=i;Q.cards[i].used=1;Q.selc=null;$('#qa').innerHTML=dndHtml()}
+
+/* ---------- dashboard guru ---------- */
+function rec(t){if(!t.n)return'Belum mengerjakan soal. Ajak murid memulai Pulau Satuan & Puluhan.';const m=Math.max(...t.errP),r=[t.pct>=80?'Beri tantangan lanjutan (bilangan 10.000, soal cerita).':t.pct>=60?'Lakukan latihan penguatan dalam kelompok kecil.':'Dampingi langsung dengan materi dasar dan alat peraga.'];
+if(m>0)r.push(`Perkuat tempat ${PL[t.errP.indexOf(m)]}.`);if(t.ek.a>t.ek.t)r.push('Tekankan beda “angka” dan “nilai angka”.');else if(t.ek.t)r.push('Latih urutan tempat dari kanan ke kiri.');return r.join(' ')}
+function vTeach(){const rows=Object.entries(DB.st).map(([nm,s])=>{const t=stats(s),m=Math.max(...t.errP),er=m>0?`${PL[t.errP.indexOf(m)]} (${t.ek.a>t.ek.t?'angka tertukar dengan nilainya':'salah tempat'})`:'–';return{nm,t,html:`<tr><td><b>${esc(nm)}</b></td><td>${t.n}</td><td>${t.ok}</td><td>${t.bad}</td><td>${t.n?t.pct+'%':'–'}</td><td>${er}</td><td>${Object.keys(s.done).length}/4</td><td>${rec(t)}</td></tr>`}});
+const act=rows.filter(r=>r.t.n),avg=act.length?Math.round(act.reduce((a,r)=>a+r.t.pct,0)/act.length):0;
+$('#s-teach').innerHTML=`<div class="card"><h2>👩‍🏫 Dashboard Guru</h2><p>Murid: <b>${rows.length}</b>, rata-rata penguasaan: <b>${avg}%</b></p><div class="tw"><table class="t"><tr><th>Nama</th><th>Soal</th><th>Benar</th><th>Salah</th><th>Penguasaan</th><th>Kesalahan sering</th><th>Level selesai</th><th>Rekomendasi tindak lanjut</th></tr>${rows.map(r=>r.html).join('')||'<tr><td colspan="8">Belum ada data murid. Mainkan gim atau isi data contoh.</td></tr>'}</table></div>
+<p class="small">Benar = dijawab benar pada percobaan pertama tanpa petunjuk. Data tersimpan di peramban perangkat ini.</p><p><button class="btn b" data-a="demo">Isi Data Contoh</button><button class="btn r" data-a="wipe">${confirmDel?'Klik lagi untuk menghapus':'Hapus Semua Data'}</button><button class="btn g" data-a="map">Kembali</button></p></div>`;show('teach')}
+
+/* ---------- aksi ---------- */
+const A={
+login(d){const nm=(d.n||($('#nm')&&$('#nm').value)||'').trim().slice(0,24);if(!nm)return toast('Tulis namamu dulu ya!');if(!DB.st[nm])DB.st[nm]=newS();DB.cur=nm;save();vMap()},
+logout(){DB.cur=null;save();vLogin();show('login')},
+map(){S()?vMap():(vLogin(),show('login'))},
+play(d){const i=+d.i,s=S();if(!(i==0||s.done[i-1]))return toast('Selesaikan pulau sebelumnya dengan skor 80% dulu ya!');startRound(i,'normal')},
+round(d){startRound(d.i!=null?+d.i:R.lv,d.m)},
+lesson(d){vLesson(+d.i,d.m)},
+col(d){const j=+d.j;LS.c[j]=Math.max(0,Math.min(9,LS.c[j]+ +d.d));beep(440+j*80,.07);paintLesson()},
+chal(){const L=LV[LS.lv];LS.tg=+[...genD(L.mp+1,2)].reverse().join('');LS.c=[0,0,0,0];paintLesson()},
+pick(d){Q.pk=+d.i;document.querySelectorAll('.opt').forEach((b,i)=>b.classList.toggle('sel',i==Q.pk))},
+chip(d){Q.selc=+d.i;$('#qa').innerHTML=dndHtml()},
+slot(d){const j=+d.j;if(Q.selc!=null)place(Q.selc,j);else if(Q.sl[j]!=null){Q.cards[Q.sl[j]].used=0;Q.sl[j]=null;$('#qa').innerHTML=dndHtml()}},
+check,hint,retry(){if(Q.ty=='dnd'){Q.cards.forEach(c=>c.used=0);Q.sl=Q.sl.map(()=>null);Q.selc=null}paintQ()},
+next(){R.i++;R.i>=R.total?endRound():nextQ()},
+snd(){snd=!snd;$('#bs').textContent=snd?'🔊':'🔇'},
+teacher(){$('#s-gate').innerHTML='<div class="card hero"><h2>Halaman Guru</h2><p>Masukkan PIN guru (prototipe: 1234).</p><input class="ans" id="pin" type="password" inputmode="numeric" aria-label="PIN guru"><p><button class="btn g" data-a="pin">Masuk</button><button class="btn b" data-a="map">Kembali</button></p></div>';show('gate')},
+pin(){$('#pin').value=='1234'?vTeach():toast('PIN salah')},
+demo(){[['Contoh Ani',.9,2],['Contoh Budi',.7,1],['Contoh Citra',.4,3]].forEach(([n,a,w])=>{const s=DB.st[n]=newS();for(let i=0;i<24;i++){const bad=Math.random()>a,p=bad?w:rnd(0,3);s.log.push({l:Math.min(3,i/8|0),p,ty:'mv',c:bad?(Math.random()<.5?.5:0):1,er:bad?[{p,k:Math.random()<.6?'a':'t'}]:[],t:Date.now()})}s.done[0]={best:85,stars:2};if(a>.8){s.done[1]={best:92,stars:3};s.badges.push(LV[0].bd)}});save();vTeach()},
+wipe(){if(!confirmDel){confirmDel=true;return vTeach()}confirmDel=false;DB={st:{},cur:null};save();vTeach()}};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a])A[b.dataset.a](b.dataset)});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='in')check();if(e.key=='Enter'&&e.target.id=='nm')A.login({});if(e.key=='Enter'&&e.target.id=='pin')A.pin()});
+document.addEventListener('dragstart',e=>{const c=e.target.closest('[data-a=chip]');if(c)e.dataTransfer.setData('text',c.dataset.i)});
+document.addEventListener('dragover',e=>{if(e.target.closest('[data-a=slot]'))e.preventDefault()});
+document.addEventListener('drop',e=>{const sl=e.target.closest('[data-a=slot]');if(!sl||!Q)return;e.preventDefault();const i=e.dataTransfer.getData('text');if(i!=='')place(+i,+sl.dataset.j)});
+document.addEventListener('pointermove',e=>{const t=$('#tilt');if(t)t.style.setProperty('--ry',((e.clientX/innerWidth)-.5)*14+'deg')});
+if(DB.cur&&DB.st[DB.cur])vMap();else{DB.cur=null;vLogin()}
+</script></body></html>
